@@ -1,4 +1,3 @@
-from django.shortcuts import get_list_or_404
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, DetailView
 from django.http import HttpResponse
@@ -26,13 +25,13 @@ class IndexView(TemplateView):
     
 
 class CatalogView(TemplateView):
-    template_name ='main/base.html'
+    template ='main/base.html'
 
     FILTER_MAPPING = {
         'color': lambda queryset, value: queryset.filter(color__iexact=value),
-        'main_price': lambda queryset, value: queryset.filter(price__gte=value),
-        'max_price': lambda queryset, value: queryset.filter(price__lte=value),
-        'size': lambda queryset, value: queryset.filter(size__name=value),
+        'main_price': lambda queryset, value: queryset.filter(price_gte=value),
+        'max_price': lambda queryset, value: queryset.filter(price_lte=value),
+        'size': lambda queryset, value: queryset.filter(product_sizes__size__name=value),
     }   
 
 
@@ -40,7 +39,7 @@ class CatalogView(TemplateView):
         context = super().get_context_data(**kwargs)
         category_slug = kwargs.get('category_slug')
         categories = Category.objects.all()
-        products = Product.objects.all().order_by('-id')
+        products = Product.objects.all().order_by('-created_at')
         current_category = None
         
         if category_slug:

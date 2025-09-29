@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Catagory, Size, Product, \
+from .models import Category, Size, Product, \
     ProductImage, ProductSize
 
 
-class ProductImageInline(admin. TabularInline):
+class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
 
 
-class ProductSizeInline(admin. TabularInline):
+class ProductSizeInline(admin.TabularInline):
     model = ProductSize
     extra = 1
 
@@ -30,6 +30,6 @@ class SizeAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
-admin.site.register(Catagory, CategoryAdmin)          
+admin.site.register(Category, CategoryAdmin)          
 admin.site.register(Size, SizeAdmin)          
 admin.site.register(Product, ProductAdmin)          
